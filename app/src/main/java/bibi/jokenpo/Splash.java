@@ -18,6 +18,7 @@ public class Splash extends Activity {
             public void run() {
                 Intent comeca = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(comeca);
+                finish();
             }
         },6000);
 
