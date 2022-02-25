@@ -14,7 +14,7 @@ public class MainActivity extends Activity {
     private ImageView player2;
     private int joga1 = 0;
     private TextView btJogar;
-
+    private int joga2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,37 +30,54 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if(joga1 == 0){
-                    player1.setImageResource(R.drawable.papel);
+                    player1.setImageResource(R.drawable.pedra);
                     joga1++;
                 }else if(joga1 == 1){
-                    player1.setImageResource(R.drawable.tesoura);
+                    player1.setImageResource(R.drawable.papel);
                     joga1++;
                 }else if(joga1 == 2){
-                    player1.setImageResource(R.drawable.pedra);
+                    player1.setImageResource(R.drawable.tesoura);
                     joga1 = 0;
                 }
             }
+
         });
 
-        //Evento ao clicar em jogar
+        //Evento ao clicar em jogar e chamar o evento de mudar a mão 2
         btJogar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 geraPlayer2();
+                verifica();
             }
         });
     }
 
     // Evento de alterar de forma aleatória a mão 2.
     private void geraPlayer2(){
-        int joga2 = (int)(Math.random()*150);
-        if(joga2 >= 0 && joga2 < 50){
-            player2.setImageResource(R.drawable.papel);
-        }else if(joga2 >= 50 && joga2 < 100){
+        joga2 = (int)(Math.random()*3);
+        if(joga2 == 0){
             player2.setImageResource(R.drawable.tesoura);
-        }else if(joga2 >= 100){
+        }else if(joga2 == 1){
             player2.setImageResource(R.drawable.pedra);
+        }else if(joga2 == 2){
+            player2.setImageResource(R.drawable.papel);
         }
-        joga2 = 0;
+
+    }
+
+    // verifica vencedor
+    private void verifica(){
+        if(joga1 == joga2){
+            btJogar.setText("Empate");
+        }else if(joga1 == 0 && joga2 ==  2){
+            btJogar.setText("Player 1 Ganhou");
+        }else if(joga1 == 2 && joga2 == 0){
+            btJogar.setText("Player 2 Ganhou");
+        }else if(joga1 > joga2){
+            btJogar.setText("Player 1 Ganhou");
+        }else if(joga1 < joga2){
+            btJogar.setText("Player 2 Ganhou");
+        }
     }
 }
